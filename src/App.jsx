@@ -5,23 +5,19 @@ function App() {
 
   const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
   
+  const [weatherData, setWeatherData] = useState({});
   const [city, setCity] = useState("chennai");
-  const [temperature, setTemperature] = useState(null);
-  const [condition, setCondition] = useState(null);
-  const [humidity, setHumidity] = useState(null);
-  const [wind, setWind] = useState(null);
 
   const fetchWeather = async (cityname) => {
+
     try{
-      await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${API_KEY}&units=metric`)
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-          setTemperature(data?.main?.temp);
-          setCondition(data?.weather[0]?.main);
-          setHumidity(data?.main?.humidity);
-          setWind(data?.wind?.speed);
-      })
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${API_KEY}&units=metric`);
+      const data = await response.json();
+      if(data.cod === '404')
+          alert('City Not found..Please try again!')
+      else
+        setWeatherData(data);
+
     } catch(e){
       console.log(e);
     }
@@ -40,23 +36,25 @@ function App() {
           <input type="text" id="city" placeholder="Enter City Name" onChange={(e) => setCity(e.target.value)} autoComplete='off' />
           <button id="searchBtn" onClick={() => fetchWeather(city)}>Search</button>
         </div>
-        <div className="weather-card">
-          <h2 id="cityName">{city}</h2>
-          <div id="weather-icon"><img src={`./src/assets/images/${condition}.png`} alt="" /></div>
-          <h1><span id="temperature">{temperature}</span>&deg;C</h1>
-          <p id="condition">{condition}</p>
+        {weatherData.main && (
+          <div className="weather-card">
+            <h2 id="cityName">{city}</h2>
+            <div id="weather-icon"><img src={`./src/assets/images/${weatherData.weather?.[0]?.main?.condition}.png`} alt="" /></div>
+            <h1><span id="temperature">{weatherData.main?.temp}</span>&deg;C</h1>
+            <p id="condition">{weatherData.weather?.[0]?.main.condition}</p>
 
-          <div className="weather-details">
-            <div>
-              <span><i className="fa-solid fa-droplet"></i> Humidity</span>
-              <p><span id="humidity">{humidity}</span>%</p>
-            </div>
-            <div>
-              <span><i className="fa-solid fa-wind"></i> Wind</span>
-              <p><span id="wind">{wind}</span> km/h</p>
+            <div className="weather-details">
+              <div>
+                <span><i className="fa-solid fa-droplet"></i> Humidity</span>
+                <p><span id="humidity">{weatherData.main?.humidity}</span>%</p>
+              </div>
+              <div>
+                <span><i className="fa-solid fa-wind"></i> Wind</span>
+                <p><span id="wind">{weatherData.wind?.speed}</span> km/h</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   )
