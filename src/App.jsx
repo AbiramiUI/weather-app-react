@@ -37,7 +37,7 @@ function App() {
         </div>
         <div className="weather-card">
           <h2 id="cityName">{city}</h2>
-          <div id="weather-icon"><img src={`../src/assets/images/${condition}.png`} alt="" /></div>
+          <div id="weather-icon"><img src={`./src/assets/images/${condition}.png`} alt="" /></div>
           <h1><span id="temperature">{temperature}</span>&deg;C</h1>
           <p id="condition">{condition}</p>
 
