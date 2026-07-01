@@ -15,6 +15,7 @@ function App() {
     await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${API_KEY}&units=metric`)
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         setTemperature(data.main.temp);
         setCondition(data.weather[0].main);
         setHumidity(data.main.humidity);
