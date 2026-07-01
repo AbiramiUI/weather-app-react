@@ -30,7 +30,7 @@ function App() {
   return (
     <>
       <div className="weather-container">
-        <h1> Weather App</h1>
+        <h1>Weather App!</h1>
         <div className="search-box">
           <input type="text" id="city" placeholder="Enter City Name" onChange={(e) => setCity(e.target.value)} autoComplete='off' />
           <button id="searchBtn" onClick={() => fetchWeather(city)}>Search</button>
