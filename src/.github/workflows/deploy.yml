@@ -33,6 +33,9 @@ jobs:
         run: npm ci
 
       - name: Build project
+        env:
+        # This injects the GitHub secret into the build environment
+        VITE_API_KEY: ${{ secrets.VITE_API_KEY }} 
         run: npm run build
 
       - name: Upload production artifacts
