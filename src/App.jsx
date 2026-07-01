@@ -16,10 +16,10 @@ function App() {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        setTemperature(data.main.temp);
-        setCondition(data.weather[0].main);
-        setHumidity(data.main.humidity);
-        setWind(data.wind.speed);
+        setTemperature(data?.main?.temp);
+        setCondition(data?.weather[0]?.main);
+        setHumidity(data?.main?.humidity);
+        setWind(data?.wind?.speed);
       })
   }
 
