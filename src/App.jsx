@@ -39,9 +39,9 @@ function App() {
         {weatherData.main && (
           <div className="weather-card">
             <h2 id="cityName">{city}</h2>
-            <div id="weather-icon"><img src={`./src/assets/images/${weatherData.weather?.[0]?.main?.condition}.png`} alt="" /></div>
+            <div id="weather-icon"><img src={`./src/assets/images/${weatherData.weather[0]?.main}.png`} alt="" /></div>
             <h1><span id="temperature">{weatherData.main?.temp}</span>&deg;C</h1>
-            <p id="condition">{weatherData.weather?.[0]?.main.condition}</p>
+            <p id="condition">{weatherData.weather[0]?.main}</p>
 
             <div className="weather-details">
               <div>
